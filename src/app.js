@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const { UserModel } = require("./models/userModel");
 
 //load env variables
 dotenv.config();
@@ -28,16 +29,6 @@ mongoose
   .catch((error) => {
     console.log("An error has ocuured " + error.message);
   });
-
-//schema
-const UserSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-  isAdmin: Boolean,
-});
-
-//user Model
-const UserModel = mongoose.model("User", UserSchema);
 
 //routes
 app.get("/", async (_, res) => {
