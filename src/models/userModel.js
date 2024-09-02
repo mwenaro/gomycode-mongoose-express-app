@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 
 //schema
 const UserSchema = new mongoose.Schema({
-    name: String,
-    age: Number,
-    isAdmin: Boolean,
+    name: {type:String, required:true, unique:true},
+    age: {type:Number, required:true},
+    isAdmin: {type:Boolean, default:false},
   });
   
   //user Model
