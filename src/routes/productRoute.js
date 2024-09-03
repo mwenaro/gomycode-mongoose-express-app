@@ -27,8 +27,8 @@ productRouter.get("/products/:id", async (req, res) => {
 //POST /products
 productRouter.post("/products", async (req, res) => {
   try {
-    // const newProduct = new ProductModel(req.body);
-    const savedProduct = await ProductModel.insertMany(req.body);
+    const newProduct = new ProductModel(req.body);
+    const savedProduct = await newProduct.save();
 
     if (!savedProduct) res.status(400).send({ message: " Invalid input" });
 
