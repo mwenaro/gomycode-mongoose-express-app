@@ -23,9 +23,13 @@ dbCon()
 //import route handlers
 //users
 const { userRouter } = require("./routes/userRoute");
+//prodcuts
+const{productRouter} = require("./routes/productRoute")
 
 //use the routes
 app.use(userRouter);
+//use products route
+app.use(productRouter)
 
 //routes
 app.get("/", async (_, res) => {
