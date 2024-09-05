@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const { UserModel } = require("./models/userModel");
-const {dbCon}  = require('./db/connection')
+const { dbCon } = require("./db/connection");
 //load env variables
 dotenv.config();
 
@@ -15,25 +15,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // //cors
-
+app.use(cors());
 
 // db con here
-dbCon()
+dbCon();
 
 //import route handlers
 //users
 const { userRouter } = require("./routes/userRoute");
 //prodcuts
-const{productRouter} = require("./routes/productRoute")
+const { productRouter } = require("./routes/productRoute");
 
 //use the routes
 app.use(userRouter);
 //use products route
-app.use(productRouter)
+app.use(productRouter);
 
 //routes
 app.get("/", async (_, res) => {
-   console.log({ data: "" });
+  console.log({ data: "" });
 
   res.send({ message: "Hell from server" });
 });

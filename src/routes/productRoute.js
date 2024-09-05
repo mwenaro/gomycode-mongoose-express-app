@@ -11,6 +11,7 @@ productRouter.get("/products", async (req, res) => {
 //GET /products/:id
 productRouter.get("/products/:id", async (req, res) => {
   try {
+    //req.params.id
     const {
       params: { id },
     } = req;
@@ -20,7 +21,7 @@ productRouter.get("/products/:id", async (req, res) => {
 
     res.send(fetchedProduct);
   } catch (error) {
-    res.status(404).send({ message: "Error " + error.message });
+    res.status(500).send({ message: "Error " + error.message });
   }
 });
 
@@ -38,7 +39,7 @@ productRouter.post("/products", async (req, res) => {
   }
 });
 
-//POST /products/:id
+//PUT /products/:id
 productRouter.put("/products/:id", async (req, res) => {
   try {
     const id = req.params.id;
