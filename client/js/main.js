@@ -2,18 +2,21 @@
 const productContainer = document.querySelector(".product-container");
 productContainer.className = 'w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 p-4'
 const copyRightYear = document.querySelector("#copyright-year");
-const BASE_URL = "";
+const BASE_URL = "http://localhost:5000";
 let products = [];
 //fetch
-const getProducts = () => {
-  fetch("http://localhost:5000/products")
-    .then((res) => res.json())
-    .then((data) => {
-      products = data;
-      LoadProducts()
-      console.log({ data });
-    })
-    .catch((error) => console.error(error));
+
+const useFetch = async (url) => {
+  try {
+const validUrl = url.includes('http') ? url : BASE_URL + url
+    const res = await fetch(validUrl)
+    if (!res.ok) throw Error(`${res.statusText}(${res.status})`)
+    return await res.json()
+
+  } catch (error) {
+    console.error(error)
+  }
+
 };
 
 //create grid
@@ -40,10 +43,17 @@ function LoadProducts() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log(products, "b4");
+ 
   //run it here
-  await getProducts();
-//   LoadProducts()
+  // await getProducts();
+  if (!products.length) {
+   products =  await useFetch('/products')
+  }
 
-  console.log(products, "after");
+  const users = await useFetch('/users')
+
+  console.log(await useFetch('https://jsonplaceholder.typicode.com/comments'))
+  console.log({users})
+  LoadProducts()
+
 });

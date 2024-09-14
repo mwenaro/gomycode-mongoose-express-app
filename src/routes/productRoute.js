@@ -17,7 +17,7 @@ productRouter.get("/products/:id", async (req, res) => {
     } = req;
     const fetchedProduct = await ProductModel.findById(id);
 
-    if(!fetchedProduct) return res.status(404).send({ message: "Product not found" });
+    if (!fetchedProduct) return res.status(404).send({ message: "Product not found" });
 
     res.send(fetchedProduct);
   } catch (error) {
@@ -28,8 +28,13 @@ productRouter.get("/products/:id", async (req, res) => {
 //POST /products
 productRouter.post("/products", async (req, res) => {
   try {
-    const newProduct = new ProductModel(req.body);
-    const savedProduct = await newProduct.save();
+    const { body } = req
+    const data = Array.isArray(body) ? body : [body]
+    let savedProduct = await ProductModel.insertMany(data)
+
+
+
+
 
     if (!savedProduct) res.status(400).send({ message: " Invalid input" });
 
